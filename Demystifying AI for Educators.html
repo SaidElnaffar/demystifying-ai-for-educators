@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demystifying AI for Educators</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+  <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
+
+  <div id="preCheckGate" class="precheck-gate" role="dialog" aria-modal="true" aria-labelledby="preCheckGateTitle" aria-describedby="preCheckGateText">
+    <div class="precheck-gate-card card">
+      <p class="precheck-badge" data-i18n="precheckBadge">Start here</p>
+      <h2 id="preCheckGateTitle" data-i18n="gateTitle">Pre-Module Knowledge Check</h2>
+      <p id="preCheckGateText" data-i18n="gateText">Complete the short knowledge check before exploring the rest of the site. You can also skip it once, and we will remember your choice.</p>
+      <div class="precheck-gate-actions">
+        <button id="startPreCheck" type="button" class="action-btn" data-i18n="gateStart">Take the check</button>
+        <button id="skipPreCheck" type="button" class="control-btn" data-i18n="gateSkip">Skip for now</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header reveal">
+    <div class="header-left">
+      <h1 data-i18n="title">Demystifying AI for Educators</h1>
+      <p data-i18n="subtitle">Hands-on activities, quizzes, and classroom-safe AI decision practice.</p>
+    </div>
+    <div class="header-controls">
+      <button id="langToggle" class="control-btn" type="button" aria-label="Switch language">AR</button>
+      <button id="themeToggle" class="control-btn" type="button" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </header>
+
+  <nav class="site-nav reveal" aria-label="Primary">
+    <a href="#top" data-i18n="navHome">Home</a>
+    <a href="#infographicSection" data-i18n="navInfographic">Infographic</a>
+    <a href="#mindmapSection" data-i18n="navMindMap">Mind Map</a>
+    <a href="#moduleVideoSection" data-i18n="navVideo">Video</a>
+    <a href="#exercises" data-i18n="navExercises">Exercises</a>
+    <a href="#assessments" data-i18n="navAssessments">Assessments</a>
+    <a href="#resourcesSection" data-i18n="navResources">Resources</a>
+    <a href="#assistantSection" data-i18n="navAssistant">Ask AI</a>
+  </nav>
+
+  <main>
+    <section class="section reveal" id="infographicSection">
+      <article class="card media-card">
+        <h2 data-i18n="infographicTitle">Module Infographic</h2>
+        <p data-i18n="infographicIntro">Start with this infographic to get a quick overview of what this module covers.</p>
+        <img id="moduleInfographic" class="module-image" src="Infographic_EN.png" alt="Infographic summary of module" />
+      </article>
+    </section>
+
+    <section class="section reveal" id="mindmapSection">
+      <article class="card media-card mindmap-card">
+        <h2 data-i18n="mindmapTitle">Module Mind Map</h2>
+        <p data-i18n="mindmapIntro">Explore the module structure using the zoom controls or your mouse wheel.</p>
+        <div class="mindmap-controls" role="group" aria-label="Mind map zoom controls">
+          <button type="button" id="zoomOutMindMap" class="small-btn" data-i18n="zoomOut">Zoom Out</button>
+          <button type="button" id="resetMindMap" class="small-btn" data-i18n="zoomReset">Reset</button>
+          <button type="button" id="zoomInMindMap" class="small-btn" data-i18n="zoomIn">Zoom In</button>
+        </div>
+        <div class="mindmap-viewport" id="mindMapViewport">
+          <img id="moduleMindMap" class="module-image zoomable-mindmap" src="MindMap_EN.png" alt="Module concept mind map" />
+        </div>
+      </article>
+    </section>
+
+    <section class="section reveal" id="moduleVideoSection">
+      <article class="card media-card">
+        <h2 data-i18n="mediaTitle">Short Visual Explainer</h2>
+        <p data-i18n="mediaIntro">Use this short video to launch a classroom discussion on where AI appears in daily teaching.</p>
+        <video id="moduleVideo" controls preload="metadata" class="learning-video">
+          <source id="moduleVideoSource" src="Video_EN.mp4" type="video/mp4" />
+        </video>
+      </article>
+    </section>
+
+    <section class="hero card reveal" id="top">
+      <div class="hero-copy">
+        <h2 data-i18n="heroHeading">Learn AI by Doing</h2>
+        <p data-i18n="heroText">Use interactive classification, matching, and scenario tasks to build practical AI literacy for school settings.</p>
+      </div>
+    </section>
+
+    <section class="section reveal" id="exercises">
+      <h2 data-i18n="exercisesTitle">Exercises & Activities</h2>
+
+      <article class="card activity" id="aiOrNotSection">
+        <h3 data-i18n="aiOrNotTitle">AI or Not AI? Classification Exercise</h3>
+        <p data-i18n="aiOrNotIntro">Read each classroom technology example and classify it.</p>
+        <div id="aiOrNotList" class="stack"></div>
+        <p id="aiOrNotScore" class="score"></p>
+      </article>
+
+      <article class="card activity" id="mythFactSection">
+        <h3 data-i18n="mythFactTitle">Myth vs Fact Matching</h3>
+        <p data-i18n="mythFactIntro">Drag each statement card into the correct bucket.</p>
+        <div class="drag-grid">
+          <div id="mythFactCards" class="draggable-pool"></div>
+          <div class="dropzones">
+            <div class="dropzone" data-type="myth">
+              <h4 data-i18n="mythLabel">Myth</h4>
+              <div class="drop-inner" id="mythDrop"></div>
+            </div>
+            <div class="dropzone" data-type="fact">
+              <h4 data-i18n="factLabel">Fact</h4>
+              <div class="drop-inner" id="factDrop"></div>
+            </div>
+          </div>
+        </div>
+        <button id="checkMythFact" type="button" class="action-btn" data-i18n="checkAnswers">Check Answers</button>
+        <p id="mythFactResult" class="score"></p>
+      </article>
+
+      <article class="card activity" id="opportunitySection">
+        <h3 data-i18n="opportunityTitle">Opportunity Scan for Teacher Tasks</h3>
+        <p data-i18n="opportunityIntro">Select routine tasks to discover safe AI support opportunities.</p>
+        <div id="taskList" class="task-list"></div>
+        <aside id="taskInsight" class="insight" aria-live="polite"></aside>
+      </article>
+
+      <article class="card activity" id="vocabSection">
+        <h3 data-i18n="vocabTitle">AI Vocabulary Builder</h3>
+        <p data-i18n="vocabIntro">Flip cards to reveal educator-friendly definitions and examples.</p>
+        <div id="vocabGrid" class="vocab-grid"></div>
+      </article>
+    </section>
+
+    <section class="section reveal" id="assessments">
+      <h2 data-i18n="assessmentsTitle">Assessments & Quizzes</h2>
+
+      <article class="card activity" id="preCheckSection">
+        <h3 data-i18n="preCheckTitle">Pre-Module Knowledge Check</h3>
+        <div id="preCheckForm" class="quiz-stack"></div>
+        <button id="submitPreCheck" type="button" class="action-btn" data-i18n="submit">Submit</button>
+        <p id="preCheckResult" class="score"></p>
+      </article>
+
+      <article class="card activity" id="mcqSection">
+        <h3 data-i18n="mcqTitle">Multiple Choice & Scenario Quiz</h3>
+        <div id="mcqForm" class="quiz-stack"></div>
+        <button id="submitMcq" type="button" class="action-btn" data-i18n="submit">Submit</button>
+        <p id="mcqResult" class="score"></p>
+      </article>
+
+      <article class="card activity" id="conceptSection">
+        <h3 data-i18n="conceptTitle">Drag-and-Drop Concept Matching</h3>
+        <p data-i18n="conceptIntro">Match each AI concept with the best classroom description.</p>
+        <div class="drag-grid">
+          <div id="conceptTerms" class="draggable-pool"></div>
+          <div id="conceptTargets" class="concept-targets"></div>
+        </div>
+        <button id="checkConcept" type="button" class="action-btn" data-i18n="checkAnswers">Check Answers</button>
+        <p id="conceptResult" class="score"></p>
+      </article>
+
+      <article class="card activity" id="checkpointSection">
+        <h3 data-i18n="checkpointTitle">Formative Checkpoint</h3>
+        <p data-i18n="checkpointIntro">Choose exactly 3 appropriate and 3 inappropriate school uses of AI.</p>
+        <div id="checkpointList" class="checkpoint-list"></div>
+        <button id="checkCheckpoint" type="button" class="action-btn" data-i18n="validate">Validate</button>
+        <p id="checkpointResult" class="score"></p>
+      </article>
+    </section>
+
+    <section class="section reveal" id="resourcesSection">
+      <article class="card resources-card">
+        <h2 data-i18n="resourcesTitle">Downloadable Study Resources</h2>
+        <p data-i18n="resourcesIntro">Download the full module study material and presentation slides.</p>
+        <div class="resource-links">
+          <a id="downloadContent" class="resource-link" href="Content_EN.pdf" download data-i18n="downloadContentLabel">Download Full Study Material</a>
+          <a id="downloadSlides" class="resource-link" href="Slides_EN.pdf" download data-i18n="downloadSlidesLabel">Download Slides</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="section reveal" id="assistantSection">
+      <article class="card assistant-card">
+        <h2 data-i18n="assistantTitle">Experimental AI Teaching Assistant</h2>
+        <p class="assistant-note" data-i18n="assistantIntro">Prototype mode: this assistant works offline with module knowledge only (no external LLM API).</p>
+
+        <div id="assistantPromptChips" class="assistant-chips" aria-label="Suggested prompts"></div>
+
+        <label for="assistantQuestion" class="assistant-label" data-i18n="assistantInputLabel">Ask a question about this module</label>
+        <textarea id="assistantQuestion" class="assistant-input" rows="4" data-i18n-placeholder="assistantPlaceholder" placeholder="Ask anything about AI concepts, safe use, myths, or classroom scenarios..."></textarea>
+
+        <div class="assistant-actions">
+          <button id="askAssistant" type="button" class="action-btn" data-i18n="assistantAsk">Ask Assistant</button>
+          <button id="clearAssistant" type="button" class="control-btn" data-i18n="assistantClear">Clear</button>
+        </div>
+
+        <div id="assistantResponse" class="assistant-response is-hidden" aria-live="polite"></div>
+      </article>
+    </section>
+
+  </main>
+
+  <footer class="site-footer reveal">
+    <p data-i18n="footerText">Designed for practical, safe, and ethical AI literacy in education.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
