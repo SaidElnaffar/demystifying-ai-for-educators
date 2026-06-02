@@ -7,7 +7,21 @@ const state = {
   aiNotSelections: {},
   mythDrops: {},
   conceptDrops: {},
-  checkpointChoices: {}
+  checkpointChoices: {},
+  vocabSeen: {},
+  progress: {
+    viewedInfographic: false,
+    exploredMindMap: false,
+    watchedVideo: false,
+    completedAiOrNot: false,
+    completedMythFact: false,
+    exploredTasks: false,
+    exploredVocab: false,
+    completedPreCheck: false,
+    completedMcq: false,
+    completedConcept: false,
+    completedCheckpoint: false
+  }
 };
 
 const preCheckStorageKey = "demystifyAI.preCheckState";
@@ -35,6 +49,18 @@ const i18n = {
     zoomIn: "Zoom In",
     heroHeading: "Learn AI by Doing",
     heroText: "Use interactive classification, matching, and scenario tasks to build practical AI literacy for school settings.",
+    progressKicker: "Your progress",
+    progressTitle: "Every step builds classroom AI confidence.",
+    progressCompletedWord: "completed",
+    progressDone: "Done",
+    progressNext: "Next",
+    progressLater: "Ahead",
+    progressStatsLabel: "milestones complete",
+    progressMessageStart: "You are at the starting line. Open the first learning touchpoint and build momentum.",
+    progressMessageWarm: "Good start. Each finished activity sharpens practical AI judgment for the classroom.",
+    progressMessageStrong: "Strong momentum. You are turning theory into confident teaching decisions.",
+    progressMessageFinish: "Excellent progress. A few more milestones and this module is fully yours.",
+    progressMessageComplete: "Module complete. You finished every milestone and built a solid foundation for safe AI use in education.",
     mindmapCaption: "Visual map of core AI concepts for educators",
     exercisesTitle: "Exercises & Activities",
     aiOrNotTitle: "AI or Not AI? Classification Exercise",
@@ -81,6 +107,17 @@ const i18n = {
     assistantPrompt2: "How can I reduce hallucinations?",
     assistantPrompt3: "Will AI replace teachers?",
     assistantPrompt4: "What does human in the loop mean?",
+    milestoneInfographic: "Infographic viewed",
+    milestoneMindMap: "Mind map explored",
+    milestoneVideo: "Video watched",
+    milestoneAiOrNot: "AI classification finished",
+    milestoneMythFact: "Myth vs fact checked",
+    milestoneTasks: "Opportunity scan explored",
+    milestoneVocab: "Vocabulary cards explored",
+    milestonePreCheck: "Pre-check submitted",
+    milestoneMcq: "Main quiz submitted",
+    milestoneConcept: "Concept matching finished",
+    milestoneCheckpoint: "Checkpoint validated",
     footerText: "Designed for practical, safe, and ethical AI literacy in education.",
     classifyAI: "AI",
     classifyNot: "Not AI",
@@ -111,6 +148,18 @@ const i18n = {
     zoomIn: "تكبير",
     heroHeading: "تعلم الذكاء الاصطناعي بالممارسة",
     heroText: "استخدم أنشطة تفاعلية للتصنيف والمطابقة والسيناريوهات لبناء فهم عملي للذكاء الاصطناعي في البيئة التعليمية.",
+    progressKicker: "تقدمك",
+    progressTitle: "كل خطوة تبني ثقة حقيقية في استخدام الذكاء الاصطناعي داخل الصف.",
+    progressCompletedWord: "مكتمل",
+    progressDone: "تم",
+    progressNext: "التالي",
+    progressLater: "لاحقا",
+    progressStatsLabel: "مراحل مكتملة",
+    progressMessageStart: "أنت عند نقطة البداية. افتح أول محطة تعلم وابدأ ببناء الزخم.",
+    progressMessageWarm: "بداية جيدة. كل نشاط تنجزه يعزز حكمك العملي على استخدام الذكاء الاصطناعي في الصف.",
+    progressMessageStrong: "زخم قوي. أنت تحول المعرفة النظرية إلى قرارات تعليمية واثقة.",
+    progressMessageFinish: "تقدم ممتاز. تبقت لك بضع مراحل فقط لإكمال هذا المحور بالكامل.",
+    progressMessageComplete: "اكتمل المحور. أنهيت جميع المراحل وبنيت أساسًا قويًا لاستخدام آمن للذكاء الاصطناعي في التعليم.",
     mindmapCaption: "خريطة مرئية لمفاهيم الذكاء الاصطناعي الأساسية للمعلمين",
     exercisesTitle: "التمارين والأنشطة",
     aiOrNotTitle: "هل هذا ذكاء اصطناعي أم لا؟",
@@ -157,6 +206,17 @@ const i18n = {
     assistantPrompt2: "كيف أقلل الهلوسة؟",
     assistantPrompt3: "هل سيستبدل الذكاء الاصطناعي المعلمين؟",
     assistantPrompt4: "ماذا يعني الإنسان ضمن الحلقة؟",
+    milestoneInfographic: "تمت مشاهدة الإنفوجرافيك",
+    milestoneMindMap: "تم استكشاف الخريطة الذهنية",
+    milestoneVideo: "تمت مشاهدة الفيديو",
+    milestoneAiOrNot: "اكتمل تصنيف الذكاء الاصطناعي",
+    milestoneMythFact: "تم التحقق من خرافة أم حقيقة",
+    milestoneTasks: "تم استكشاف فرص الاستخدام",
+    milestoneVocab: "تم استكشاف بطاقات المفردات",
+    milestonePreCheck: "تم إرسال الاختبار القبلي",
+    milestoneMcq: "تم إرسال الاختبار الرئيسي",
+    milestoneConcept: "اكتملت مطابقة المفاهيم",
+    milestoneCheckpoint: "تم التحقق من نقطة التحقق",
     footerText: "مصمم لتعزيز الوعي العملي والآمن والأخلاقي للذكاء الاصطناعي في التعليم.",
     classifyAI: "ذكاء اصطناعي",
     classifyNot: "ليس ذكاء اصطناعي",
@@ -554,6 +614,20 @@ const assistantKnowledge = [
   }
 ];
 
+const progressMilestones = [
+  { key: "viewedInfographic", labelKey: "milestoneInfographic" },
+  { key: "exploredMindMap", labelKey: "milestoneMindMap" },
+  { key: "watchedVideo", labelKey: "milestoneVideo" },
+  { key: "completedAiOrNot", labelKey: "milestoneAiOrNot" },
+  { key: "completedMythFact", labelKey: "milestoneMythFact" },
+  { key: "exploredTasks", labelKey: "milestoneTasks" },
+  { key: "exploredVocab", labelKey: "milestoneVocab" },
+  { key: "completedPreCheck", labelKey: "milestonePreCheck" },
+  { key: "completedMcq", labelKey: "milestoneMcq" },
+  { key: "completedConcept", labelKey: "milestoneConcept" },
+  { key: "completedCheckpoint", labelKey: "milestoneCheckpoint" }
+];
+
 function t(key) {
   return i18n[state.lang][key] || key;
 }
@@ -576,6 +650,62 @@ function el(tag, className, text) {
   if (className) node.className = className;
   if (text) node.textContent = text;
   return node;
+}
+
+function markProgress(key) {
+  if (!state.progress[key]) {
+    state.progress[key] = true;
+  }
+  renderProgress();
+}
+
+function getProgressMessage(completed, total) {
+  if (completed === total) return t("progressMessageComplete");
+  if (completed === 0) return t("progressMessageStart");
+  if (completed <= Math.floor(total * 0.35)) return t("progressMessageWarm");
+  if (completed <= Math.floor(total * 0.75)) return t("progressMessageStrong");
+  return t("progressMessageFinish");
+}
+
+function renderProgress() {
+  const percentNode = document.getElementById("progressPercent");
+  const fillNode = document.getElementById("progressBarFill");
+  const barNode = document.getElementById("progressBar");
+  const statsNode = document.getElementById("progressStats");
+  const messageNode = document.getElementById("progressMessage");
+  const milestonesNode = document.getElementById("progressMilestones");
+
+  if (!percentNode || !fillNode || !barNode || !statsNode || !messageNode || !milestonesNode) return;
+
+  const total = progressMilestones.length;
+  const completed = progressMilestones.filter((item) => state.progress[item.key]).length;
+  const percent = Math.round((completed / total) * 100);
+  const nextMilestone = progressMilestones.find((item) => !state.progress[item.key]);
+
+  percentNode.textContent = `${percent}%`;
+  fillNode.style.width = `${percent}%`;
+  barNode.setAttribute("aria-valuenow", String(percent));
+  statsNode.textContent = `${completed}/${total} ${t("progressStatsLabel")}`;
+
+  const baseMessage = getProgressMessage(completed, total);
+  messageNode.textContent = nextMilestone
+    ? `${baseMessage} ${t("progressNext")}: ${t(nextMilestone.labelKey)}.`
+    : baseMessage;
+
+  milestonesNode.innerHTML = "";
+  progressMilestones.forEach((item) => {
+    const pill = el("div", "progress-pill");
+    const done = state.progress[item.key];
+    const isNext = !done && nextMilestone && nextMilestone.key === item.key;
+
+    if (done) pill.classList.add("is-complete");
+    if (isNext) pill.classList.add("is-next");
+
+    const status = el("span", "progress-pill-status", done ? t("progressDone") : isNext ? t("progressNext") : t("progressLater"));
+    const label = el("span", "progress-pill-label", t(item.labelKey));
+    pill.append(status, label);
+    milestonesNode.append(pill);
+  });
 }
 
 function shuffle(arr) {
@@ -874,9 +1004,11 @@ function scoreAiOrNot() {
   const done = Object.keys(state.aiNotSelections).length;
   if (done < total) {
     setScoreText("aiOrNotScore", "", `${done}/${total}`);
+    renderProgress();
     return;
   }
 
+  markProgress("completedAiOrNot");
   const correct = datasets.aiOrNot.filter((it) => state.aiNotSelections[it.id] === it.answer).length;
   setScoreText("aiOrNotScore", t("correct"), `${correct}/${total}`);
 }
@@ -940,6 +1072,7 @@ function checkMythFact() {
     setScoreText("mythFactResult", t("incorrect"), `${Object.keys(state.mythDrops).length}/${total}`);
     return;
   }
+  markProgress("completedMythFact");
   const score = datasets.mythFact.filter((item) => state.mythDrops[item.id] === item.type).length;
   setScoreText("mythFactResult", t("correct"), `${score}/${total}`);
 }
@@ -955,9 +1088,14 @@ function renderTasks() {
       document.querySelectorAll(".task-chip").forEach((n) => n.classList.remove("active"));
       chip.classList.add("active");
       document.getElementById("taskInsight").textContent = task.insight[state.lang];
+      markProgress("exploredTasks");
     };
-    if (idx === 0) chip.click();
     wrap.append(chip);
+
+    if (idx === 0) {
+      chip.classList.add("active");
+      document.getElementById("taskInsight").textContent = task.insight[state.lang];
+    }
   });
 }
 
@@ -978,7 +1116,13 @@ function renderVocab() {
 
     inner.append(front, back);
     card.append(inner);
-    card.onclick = () => card.classList.toggle("flipped");
+    card.onclick = () => {
+      card.classList.toggle("flipped");
+      state.vocabSeen[v.term.en] = true;
+      if (Object.keys(state.vocabSeen).length === datasets.vocab.length) {
+        markProgress("exploredVocab");
+      }
+    };
     wrap.append(card);
   });
 }
@@ -1010,6 +1154,9 @@ function scoreQuiz(data, prefix, resultId) {
     if (!checked) return;
     if (Number(checked.value) === q.answer) score += 1;
   });
+
+  if (prefix === "pre") markProgress("completedPreCheck");
+  if (prefix === "mcq") markProgress("completedMcq");
   setScoreText(resultId, t("correct"), `${score}/${data.length}`);
 }
 
@@ -1048,6 +1195,9 @@ function renderConceptMatch() {
 
 function checkConcept() {
   const total = datasets.conceptPairs.length;
+  if (Object.keys(state.conceptDrops).length === total) {
+    markProgress("completedConcept");
+  }
   const score = datasets.conceptPairs.filter((p) => state.conceptDrops[p.id] === p.id).length;
   setScoreText("conceptResult", t("correct"), `${score}/${total}`);
 }
@@ -1095,6 +1245,8 @@ function checkCheckpoint() {
     return;
   }
 
+  markProgress("completedCheckpoint");
+
   let correctGood = 0;
   let correctBad = 0;
   datasets.checkpoint.forEach((item) => {
@@ -1116,6 +1268,7 @@ function renderAll() {
   renderQuiz("mcqForm", datasets.mcq, "mcq");
   renderConceptMatch();
   renderCheckpoint();
+  renderProgress();
 }
 
 function clamp(value, min, max) {
@@ -1186,6 +1339,8 @@ function initMindMapZoom() {
     const targetZoom = clamp(newZoom, 0.6, 3.2);
     if (targetZoom === state.mindMapZoom) return;
 
+    markProgress("exploredMindMap");
+
     const rect = viewport.getBoundingClientRect();
     const pointX = clientX - rect.left - viewport.clientWidth / 2;
     const pointY = clientY - rect.top - viewport.clientHeight / 2;
@@ -1227,6 +1382,7 @@ function initMindMapZoom() {
 
   viewport.addEventListener("pointerdown", (event) => {
     if (event.button !== 0) return;
+    markProgress("exploredMindMap");
     dragState.active = true;
     dragState.pointerId = event.pointerId;
     dragState.startX = event.clientX;
@@ -1266,6 +1422,36 @@ function initMindMapZoom() {
   resetView();
 }
 
+function initProgressTracking() {
+  const infographicSection = document.getElementById("infographicSection");
+  const moduleVideo = document.getElementById("moduleVideo");
+
+  if (infographicSection && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          markProgress("viewedInfographic");
+          observer.disconnect();
+        });
+      },
+      { threshold: 0.55 }
+    );
+
+    observer.observe(infographicSection);
+  }
+
+  if (moduleVideo) {
+    moduleVideo.addEventListener("ended", () => markProgress("watchedVideo"));
+    moduleVideo.addEventListener("timeupdate", () => {
+      if (!moduleVideo.duration) return;
+      if (moduleVideo.currentTime / moduleVideo.duration >= 0.9) {
+        markProgress("watchedVideo");
+      }
+    });
+  }
+}
+
 function attachHandlers() {
   document.getElementById("langToggle").addEventListener("click", () => {
     state.lang = state.lang === "en" ? "ar" : "en";
@@ -1301,6 +1487,7 @@ function attachHandlers() {
 
 function boot() {
   attachHandlers();
+  initProgressTracking();
   initMindMapZoom();
   applyTheme();
   applyLanguage();

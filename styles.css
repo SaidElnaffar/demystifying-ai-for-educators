@@ -321,6 +321,168 @@ main {
   display: block;
 }
 
+.progress-card {
+  display: grid;
+  gap: 1.1rem;
+  background:
+    radial-gradient(circle at top right, rgba(243, 154, 31, 0.22), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(55, 198, 192, 0.2), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(240, 248, 255, 0.9));
+  overflow: hidden;
+}
+
+body.dark .progress-card {
+  background:
+    radial-gradient(circle at top right, rgba(255, 209, 107, 0.14), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(95, 224, 198, 0.14), transparent 36%),
+    linear-gradient(145deg, rgba(29, 53, 76, 0.96), rgba(18, 33, 49, 0.94));
+}
+
+.progress-copy {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.progress-kicker {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.progress-copy h2 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.2vw, 1.9rem);
+}
+
+.progress-message {
+  margin: 0;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.progress-panel {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  grid-template-columns: minmax(110px, 140px) 1fr;
+}
+
+.progress-circle {
+  display: grid;
+  place-items: center;
+  gap: 0.2rem;
+  min-height: 118px;
+  padding: 1rem;
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(26, 136, 214, 0.16), rgba(55, 198, 192, 0.08));
+  border: 1px solid rgba(26, 136, 214, 0.18);
+  text-align: center;
+}
+
+.progress-circle strong {
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  line-height: 1;
+}
+
+.progress-circle span {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.progress-bar-wrap {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.progress-bar {
+  position: relative;
+  min-height: 18px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(31, 42, 68, 0.09);
+  border: 1px solid rgba(26, 136, 214, 0.12);
+}
+
+body.dark .progress-bar {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.progress-bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--secondary), var(--primary), var(--primary-2));
+  box-shadow: 0 6px 20px rgba(26, 136, 214, 0.28);
+  transition: width 0.35s ease;
+}
+
+.progress-stats {
+  margin: 0;
+  font-weight: 800;
+}
+
+.progress-milestones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.progress-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(26, 136, 214, 0.12);
+  font-weight: 700;
+}
+
+body.dark .progress-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.progress-pill.is-complete {
+  background: linear-gradient(135deg, rgba(21, 162, 107, 0.18), rgba(95, 211, 156, 0.16));
+  border-color: rgba(21, 162, 107, 0.26);
+}
+
+.progress-pill.is-next {
+  background: linear-gradient(135deg, rgba(243, 154, 31, 0.18), rgba(255, 214, 111, 0.2));
+  border-color: rgba(243, 154, 31, 0.28);
+}
+
+.progress-pill-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: 0.18rem 0.42rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(26, 136, 214, 0.12);
+  color: var(--primary);
+}
+
+.progress-pill.is-complete .progress-pill-status {
+  background: rgba(21, 162, 107, 0.16);
+  color: var(--success);
+}
+
+.progress-pill.is-next .progress-pill-status {
+  background: rgba(243, 154, 31, 0.16);
+  color: #9a5b00;
+}
+
 .hero-copy h2 {
   margin-top: 0;
   font-size: clamp(1.25rem, 2.2vw, 1.8rem);
@@ -868,6 +1030,14 @@ body[dir="rtl"] .insight {
 }
 
 @media (max-width: 860px) {
+  .progress-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-circle {
+    justify-self: stretch;
+  }
+
   .site-nav {
     border-radius: 24px;
     justify-content: center;
