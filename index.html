@@ -37,7 +37,6 @@
   </header>
 
   <nav class="site-nav reveal" aria-label="Primary">
-    <a href="#top" data-i18n="navHome">Home</a>
     <a href="#infographicSection" data-i18n="navInfographic">Infographic</a>
     <a href="#mindmapSection" data-i18n="navMindMap">Mind Map</a>
     <a href="#moduleVideoSection" data-i18n="navVideo">Video</a>
@@ -48,6 +47,32 @@
   </nav>
 
   <main>
+    <section class="section reveal" id="progressSection">
+      <article class="card progress-card" aria-labelledby="progressHeading">
+        <div class="progress-copy">
+          <p class="progress-kicker" data-i18n="progressKicker">Your progress</p>
+          <h2 id="progressHeading" data-i18n="progressTitle">Every step builds classroom AI confidence.</h2>
+          <p id="progressMessage" class="progress-message" aria-live="polite"></p>
+        </div>
+
+        <div class="progress-panel">
+          <div class="progress-circle">
+            <strong id="progressPercent">0%</strong>
+            <span data-i18n="progressCompletedWord">completed</span>
+          </div>
+
+          <div class="progress-bar-wrap">
+            <div id="progressBar" class="progress-bar" role="progressbar" aria-labelledby="progressHeading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <span id="progressBarFill" class="progress-bar-fill"></span>
+            </div>
+            <p id="progressStats" class="progress-stats"></p>
+          </div>
+        </div>
+
+        <div id="progressMilestones" class="progress-milestones"></div>
+      </article>
+    </section>
+
     <section class="section reveal" id="infographicSection">
       <article class="card media-card">
         <h2 data-i18n="infographicTitle">Module Infographic</h2>
@@ -79,13 +104,6 @@
           <source id="moduleVideoSource" src="Video_EN.mp4" type="video/mp4" />
         </video>
       </article>
-    </section>
-
-    <section class="hero card reveal" id="top">
-      <div class="hero-copy">
-        <h2 data-i18n="heroHeading">Learn AI by Doing</h2>
-        <p data-i18n="heroText">Use interactive classification, matching, and scenario tasks to build practical AI literacy for school settings.</p>
-      </div>
     </section>
 
     <section class="section reveal" id="exercises">
