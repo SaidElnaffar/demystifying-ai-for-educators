@@ -725,7 +725,7 @@ body.dark .small-btn.selected-not {
 
 .vocab-inner {
   position: relative;
-  min-height: 140px;
+  min-height: clamp(170px, 22vw, 220px);
   transition: transform 0.5s;
   transform-style: preserve-3d;
 }
@@ -738,6 +738,9 @@ body.dark .small-btn.selected-not {
   position: absolute;
   inset: 0;
   padding: 0.75rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-break: break-word;
   border-radius: 14px;
   background: linear-gradient(180deg, var(--surface-solid), rgba(255, 255, 255, 0.88));
   backface-visibility: hidden;
@@ -746,6 +749,12 @@ body.dark .small-btn.selected-not {
 
 .vocab-face.back {
   transform: rotateY(180deg);
+  background: linear-gradient(180deg, rgba(55, 198, 192, 0.22), rgba(26, 136, 214, 0.14));
+}
+
+body.dark .vocab-face.back {
+  background: linear-gradient(180deg, rgba(26, 72, 104, 0.96), rgba(18, 48, 76, 0.96));
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .quiz-stack {
